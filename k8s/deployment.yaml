@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo
+  labels:
+    app: demo
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: demo
+  template:
+    metadata:
+      labels:
+        app: demo
+    spec:
+      containers:
+        - name: demo
+          livenessProbe:
+            httpGet:
+              port: 8080
+              path: /ping
+            initialDelaySeconds: 3
+            periodSeconds: 3
+          readinessProbe:
+            httpGet:
+              port: 8080
+              path: /ping
+            initialDelaySeconds: 3
+            periodSeconds: 3
+          image: ugurdincer/mycloudimage
+          ports:
+            - containerPort: 8080
+          resources:
+            requests:
+              memory: "10Mi"
+              cpu: "50m"
