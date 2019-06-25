@@ -1,0 +1,18 @@
+# Horizontal Pod AutoScalar by CPU usage
+apiVersion: autoscaling/v2beta1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: demo-hpa
+  namespace: default
+spec:
+  maxReplicas: 100
+  minReplicas: 3
+  scaleTargetRef:
+    kind: Deployment
+    name: demo
+    apiVersion: apps/v1
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        targetAverageUtilization: 80
