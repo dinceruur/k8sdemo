@@ -1,0 +1,12 @@
+apiVersion: policy/v1beta1
+kind: PodDisruptionBudget
+metadata:
+  name: demo-pdb
+spec:
+  # At least 2 Pods matching the label app: demo should always running
+  minAvailable: 2
+  # Conversely, we can limit max unavailable pods.
+  # maxUnavailable: 10%
+  selector:
+    matchLabels:
+      app: demo

@@ -35,3 +35,14 @@ spec:
             requests:
               memory: "10Mi"
               cpu: "50m"
+          volumeMounts:
+            - mountPath: /config/
+              name: demo-config-volume
+              readOnly: true
+      volumes:
+        - name: demo-config-volume
+          configMap:
+            name: demo-config
+            items:
+              - key: config
+                path: demo.yaml
